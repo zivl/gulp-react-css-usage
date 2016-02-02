@@ -1,6 +1,6 @@
 {
   "name": "gulp-react-css-usage",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Gulp task which scans your react classes ( .js / .jsx ), your CSS files, and gives you a report of CSS coverage. .i.e how many class names are needless and which are those class names",
   "keywords": [
     "gulpplugin",
