@@ -62,6 +62,9 @@ let parseAndExtractJsxClassNames = (jsxFileContents) => {
 
 let gulpReactCssUsage = (options) => {
 
+	if(!options){
+		throw new PluginError(PLUGIN_NAME, 'Some options are missing!');
+	}
 	let {css: cssFilePath} = options;
 	if (!cssFilePath) {
 		throw new PluginError(PLUGIN_NAME, 'Missing css field!');

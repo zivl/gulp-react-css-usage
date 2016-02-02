@@ -43,7 +43,7 @@ describe('main plug-in test', () => {
 
 	describe('processing files - unit tests', () => {
 
-		it('single css, single simple jsx - as buffer', (done) => {
+		it('single css, single simple jsx - as buffer', done => {
 			let jsxFile = loadFileBuffer('TestReactClass.jsx');
 			let cssFolder = path.join(__dirname, 'css');
 			var filePath = path.join(cssFolder, 'test.css');
@@ -55,7 +55,7 @@ describe('main plug-in test', () => {
 			stream.end();
 		});
 
-		it('single css, single simple jsx - as stream', (done) => {
+		it('single css, single simple jsx - as stream', done => {
 			let jsxFile = loadFileStream('TestReactClass.jsx');
 			let cssFolder = path.join(__dirname, 'css');
 			var filePath = path.join(cssFolder, 'test.css');
@@ -67,7 +67,7 @@ describe('main plug-in test', () => {
 			stream.end();
 		});
 
-		it('single css, multiple jsx files - as buffer', (done) => {
+		it('single css, multiple jsx files - as buffer', done => {
 			var files = [
 				loadFileBuffer('TestReactClass.jsx'),
 				loadFileBuffer('TestReactClass2.jsx')
@@ -86,7 +86,7 @@ describe('main plug-in test', () => {
 			stream.end();
 		});
 
-		it('single css, multiple jsx files - as stream', (done) => {
+		it('single css, multiple jsx files - as stream', done => {
 			var files = [
 				loadFileStream('TestReactClass.jsx'),
 				loadFileStream('TestReactClass2.jsx')
@@ -107,11 +107,30 @@ describe('main plug-in test', () => {
 	});
 
 	describe('use cases as real gulp plug-in', () => {
-		it('single css, multiple simple jsx', (done) => {
+		it('single css, multiple simple jsx', done => {
 			let cssFolder = path.join(__dirname, 'css');
 			let jsxFolder = path.join(__dirname, 'jsx/**/*');
 			var cssFilePath = path.join(cssFolder, 'test.css');
-			gulp.src(jsxFolder).pipe(gulpReactCssUsage({css: cssFilePath})).on('data', () => {}).on('end', done);
+			gulp.src(jsxFolder).pipe(gulpReactCssUsage({css: cssFilePath})).on('data', () => {
+			}).on('end', done);
+		});
+	});
+
+	describe('some negative tests', () => {
+		it('without options at all', done => {
+			let jsxFolder = path.join(__dirname, 'jsx/**/*');
+			gulp.src(jsxFolder).pipe(gulpReactCssUsage()).on('error', err => {
+				err.message.should.equal('Some options are missing!');
+				done();
+			});
+		});
+
+		it('without css mandatory field', done => {
+			let jsxFolder = path.join(__dirname, 'jsx/**/*');
+			gulp.src(jsxFolder).pipe(gulpReactCssUsage({})).on('error', err => {
+				err.message.should.equal('Missing css field!');
+				done();
+			});
 		});
 	});
 
