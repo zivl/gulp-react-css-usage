@@ -13,12 +13,9 @@
     "class",
     "classes"
   ],
-  "files": [
-    "index.js"
-  ],
   "license": "MIT",
   "author": "Ziv Levy (https://github.com/zivl)",
-  "main": "index.js",
+  "main": "dist/index.js",
   "homepage": "https://github.com/zivl/gulp-react-css-usage",
   "repository": {
     "type": "git",
