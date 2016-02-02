@@ -32,7 +32,8 @@
   "dependencies": {
     "babel-traverse": "^6.4.5",
     "babylon": "^6.4.5",
-    "through2": "^2.0.0"
+    "through2": "^2.0.0",
+    "gulp-util": "^3.0.7"
   },
   "devDependencies": {
     "babel": "^6.3.26",
@@ -42,7 +43,6 @@
     "babel-register": "^6.4.3",
     "chai": "^3.5.0",
     "gulp": "^3.9.0",
-    "gulp-util": "^3.0.7",
     "mocha": "^2.4.5"
   }
 }
