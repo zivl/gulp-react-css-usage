@@ -13,10 +13,19 @@ npm install gulp-react-css-usage --save-dev
 ```
 
 # Usage
+###### include the plug-in
 ```javascript
+// ECMAScript 5 code, using require()
 var gulp = require('gulp');
-var cssusage = require('gulp-react-css-usage');
-
+var cssusage = require('gulp-react-css-usage').default;
+```
+```javascript
+// ECMAScript 6 code, using module import
+import gulp from 'gulp';
+import cssusage from 'gulp-react-css-usage';
+```
+###### using the plug-in
+```javascript
 gulp.task('react-css-usage', function () {
   return gulp.src('/.../path/to/your/jsx/files/**/*.{jsx,js}')
     .pipe(cssusage({css: '/.../path/to/your/css/file/style.css'}));
