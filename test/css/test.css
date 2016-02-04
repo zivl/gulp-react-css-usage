@@ -1,5 +1,6 @@
 .test {
     color: red;
+    background:url("../images/some_image.png");
 }
 
 .test .test-exist {
@@ -29,3 +30,6 @@
 .deep-purple {
     color: rebeccapurple;
 }
+
+
+/*# sourceMappingURL=style.css.map */

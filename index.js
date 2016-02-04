@@ -6,7 +6,7 @@ import traverse from 'babel-traverse';
 
 const PluginError = gutil.PluginError;
 const PLUGIN_NAME = 'gulp-react-css-usage';
-const cssClassRegex = /\.([^,'" {]*)/gm;
+const cssClassRegex = /\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)(?![^\{]*\})/gm;
 
 let error = undefined;
 
@@ -36,7 +36,7 @@ let makeDiff = (cssClasses, jsxClasses) => {
 
 let printNeedlessClassList = (list) => {
 	gutil.log('');
-	gutil.log(gutil.colors.red('gulp-react-css-usage report: The following class names are not in use'));
+	gutil.log(gutil.colors.yellow('gulp-react-css-usage report: The following class names are not in use'));
 	list.forEach(clazz => gutil.log(clazz));
 	gutil.log('');
 };
