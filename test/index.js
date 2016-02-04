@@ -120,7 +120,7 @@ describe('main plug-in test', () => {
 		it('without options at all', done => {
 			let jsxFolder = path.join(__dirname, 'jsx/**/*');
 			gulp.src(jsxFolder).pipe(gulpReactCssUsage()).on('error', err => {
-				err.message.should.equal('Some options are missing!');
+				err.message.should.equal('Missing css field!');
 				done();
 			});
 		});

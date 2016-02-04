@@ -28,13 +28,26 @@ import cssusage from 'gulp-react-css-usage';
 ```javascript
 gulp.task('react-css-usage', function () {
   return gulp.src('/.../path/to/your/jsx/files/**/*.{jsx,js}')
-    .pipe(cssusage({css: '/.../path/to/your/css/file/style.css'}));
+    .pipe(cssusage({css: '/.../path/to/your/css/file/style.css', babylon:[]}));
 });
 ```
+## options
+### css
+**mandatory** Type: `String`
 
-### options.css
 The file path to the CSS file which this plug-in will test.<br>
 **Note:** at the moment, supports only one CSS file so it is prefer to give here the compiled/concatenated styling file)
+
+### babylon
+Type: `Array:String` Default: `['jsx', 'classProperties']`
+
+Array containing the plugins that you want to enable.<br>
+Since we're using `babel 6.4+` and `babylon` to parse and extract the class names from the `jsx` files,
+you might need to add which plug-ins to enable to parse your code.
+
+**Example:** if you're using `objectRestSpread` capability which is not in `ECMAScript2015` standards - you'll need to add it
+
+For more available plug-ins, go to [babel-babylon](https://github.com/babel/babel/tree/master/packages/babylon)
 
 
 # Having some trouble? Have an issue?

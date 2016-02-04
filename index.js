@@ -41,12 +41,16 @@ let printNeedlessClassList = (list) => {
 	gutil.log('');
 };
 
-let parseAndExtractJsxClassNames = (jsxFileContents) => {
+let parseAndExtractJsxClassNames = (jsxFileContents, babylonPlugins = []) => {
 	let jsxClassNames = {};
+	let plugins = ['jsx', 'classProperties'];
+	if(babylonPlugins.length) {
+		plugins = plugins.concat(babylonPlugins);
+	}
 
 	// use babylon.parse and then babel traverse for dynamic class names on the jsx code.
 	// might come up with a bit more strings but the needless stuff are not here anyway.
-	let ast = parse(jsxFileContents, {sourceType: "module", plugins: ["jsx"]});
+	let ast = parse(jsxFileContents, {sourceType: 'module', plugins: plugins});
 	traverse(ast, {
 		enter: function (path) {
 			let {type, value} = path.node;
@@ -60,12 +64,9 @@ let parseAndExtractJsxClassNames = (jsxFileContents) => {
 	return jsxClassNames;
 };
 
-let gulpReactCssUsage = (options) => {
+let gulpReactCssUsage = (options = {}) => {
 
-	if(!options){
-		throw new PluginError(PLUGIN_NAME, 'Some options are missing!');
-	}
-	let {css: cssFilePath} = options;
+	let {css: cssFilePath, babylon} = options;
 	if (!cssFilePath) {
 		throw new PluginError(PLUGIN_NAME, 'Missing css field!');
 	}
@@ -80,7 +81,7 @@ let gulpReactCssUsage = (options) => {
 			return cb(error, file);
 		}
 		if (file.isBuffer()) {
-			currentJsxClassNames = parseAndExtractJsxClassNames(file.contents.toString());
+			currentJsxClassNames = parseAndExtractJsxClassNames(file.contents.toString(), babylon);
 			Object.assign(allClassNames, currentJsxClassNames);
 			cb(error, file);
 		}
@@ -94,7 +95,7 @@ let gulpReactCssUsage = (options) => {
 
 			file.contents.on('data', chunk => fileBuffer = Buffer.concat([new Buffer(chunk), fileBuffer]));
 			file.contents.on('end', () => {
-				currentJsxClassNames = parseAndExtractJsxClassNames(fileBuffer.toString());
+				currentJsxClassNames = parseAndExtractJsxClassNames(fileBuffer.toString(), babylon);
 				Object.assign(allClassNames, currentJsxClassNames);
 				fileBuffer = undefined;
 				cb(error, file);
