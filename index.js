@@ -70,6 +70,9 @@ let gulpReactCssUsage = (options = {}) => {
 	if (!cssFilePath) {
 		throw new PluginError(PLUGIN_NAME, 'Missing css field!');
 	}
+	if(typeof cssFilePath !== 'string'){
+		throw new PluginError(PLUGIN_NAME, 'css field must be a string!');
+	}
 
 	let cssFile = new gutil.File({path: cssFilePath, contents: fs.readFileSync(cssFilePath)});
 	let cssClasses = getAllClassNamesFromCSSFile(cssFile);

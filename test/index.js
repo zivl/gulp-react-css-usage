@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+import should from 'should';
 import path from 'path';
 import fs from 'fs';
 import gulp from 'gulp';
@@ -117,20 +118,20 @@ describe('main plug-in test', () => {
 	});
 
 	describe('some negative tests', () => {
-		it('without options at all', done => {
-			let jsxFolder = path.join(__dirname, 'jsx/**/*');
-			gulp.src(jsxFolder).pipe(gulpReactCssUsage()).on('error', err => {
-				err.message.should.equal('Missing css field!');
-				done();
-			});
+		let jsxFolder = path.join(__dirname, 'jsx/**/*');
+		it('should throw missing field - no options', done => {
+			(() => gulp.src(jsxFolder).pipe(gulpReactCssUsage())).should.throw('Missing css field!');
+			done();
 		});
 
-		it('without css mandatory field', done => {
-			let jsxFolder = path.join(__dirname, 'jsx/**/*');
-			gulp.src(jsxFolder).pipe(gulpReactCssUsage({})).on('error', err => {
-				err.message.should.equal('Missing css field!');
-				done();
-			});
+		it('should throw missing field - empty options object', done => {
+			(() => gulp.src(jsxFolder).pipe(gulpReactCssUsage({}))).should.throw('Missing css field!');
+			done();
+		});
+
+		it('should throw type checked exception - wrong options.css type', done => {
+			(() => gulp.src(jsxFolder).pipe(gulpReactCssUsage({css:{}}))).should.throw('css field must be a string!');
+			done();
 		});
 	});
 
