@@ -1,18 +1,7 @@
 {
   "name": "gulp-react-css-usage",
-  "version": "1.0.8",
-  "description": "A Gulp task which scans your react classes ( .js / .jsx ), your CSS files, and gives you a report of CSS coverage. .i.e how many class names are needless and which are those class names",
-  "keywords": [
-    "gulpplugin",
-    "gulp",
-    "react",
-    "jsx",
-    "css",
-    "usage",
-    "className",
-    "class",
-    "classes"
-  ],
+  "version": "1.0.9",
+  "description": "Deprecated: Moved to gulp-css-usage",
   "license": "MIT",
   "author": "Ziv Levy (https://github.com/zivl)",
   "main": "dist/index.js",
